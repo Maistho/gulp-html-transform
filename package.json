@@ -1,6 +1,6 @@
 {
   "name": "gulp-html-transform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "types": "./index.d.ts",
   "repository": "git@github.com:maistho/gulp-html-transform.git",
