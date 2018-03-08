@@ -1,3 +1,4 @@
+export const styles = `
 .lqip {
   position: relative;
   width: 100%;
@@ -45,3 +46,4 @@
   right: 0;
   bottom: 0;
 }
+`

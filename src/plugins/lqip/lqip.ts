@@ -1,12 +1,10 @@
+const chalk = require('chalk')
 import * as path from 'path'
 import * as fs from 'fs'
 import { promisify } from 'util'
 
 import { Transformer } from '../../transform'
-const { base64 } = require('lqip')
-
-const sizeOf = promisify(require('image-size'))
-const readFile = promisify(fs.readFile)
+import { styles } from './lqip.css'
 
 export interface LqipOptions {
   base: string
@@ -15,6 +13,17 @@ export interface LqipOptions {
 }
 
 export const lqip = (options: LqipOptions): Transformer => {
+  let base64: any
+  let sizeOf: any
+  try {
+    base64 = require('lqip').base64
+    sizeOf = promisify(require('image-size'))
+  } catch (err) {
+    console.warn(`lqip requires ${chalk.red('lqip')} and ${chalk.red('image-size')} to be installed`)
+    return async () => {
+      // noop
+    }
+  }
   if (!options.base) {
     throw new Error('Missing required parameter `base` from options')
   }
@@ -27,9 +36,7 @@ export const lqip = (options: LqipOptions): Transformer => {
     const promises: Promise<void>[] = []
 
     if (options.addStyles) {
-      promises.push(readFile(path.join(__dirname, 'lqip.css'), { encoding: 'utf-8' }).then(styles => {
-        $('head').append(`<style>${styles}</style>`)
-      }))
+      $('head').append(`<style>${styles}</style>`)
     }
 
     const elements = $(options.query).toArray().map(el => $(el))

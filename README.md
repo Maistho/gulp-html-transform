@@ -1,18 +1,9 @@
 # gulp-html-transform
 Applies a transform to some html
 
-## Plugins
-- [gulp-html-lqip](https://github.com/maistho/gulp-html-lqip) Adds low quality image placeholders to your html 
-- [gulp-html-srcset](https://github.com/maistho/gulp-html-srcset) Expands your image srcset with more sources
 
 ## Installing
 
-Using npm
-```
-$ npm install --save gulp-html-transform
-```
-
-Using yarn
 ```
 $ yarn add gulp-html-transform
 ```
@@ -21,9 +12,7 @@ $ yarn add gulp-html-transform
 
 #### gulpfile.js
 ```javascript
-const { transform } = require('gulp-html-transform')
-const { htmlSrcset } = require('gulp-html-srcset')
-const { lqip } = require('gulp-html-lqip')
+const { transform, htmlSrcset, lqip } = require('gulp-html-transform')
 
 gulp.task('html', () => {
   gulp.src('src/**/*.html')

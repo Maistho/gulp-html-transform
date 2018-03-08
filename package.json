@@ -21,5 +21,8 @@
     "tslint": "^5.9.1",
     "tslint-config-standard": "^7.0.0",
     "typescript": "^2.6.2"
+  },
+  "peerDependencies": {
+    "@fortawesome/fontawesome": "^1.1.4"
   }
 }
