@@ -1,0 +1,16 @@
+{
+  "extends": "tslint-config-standard",
+  "rules": {
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
+    "max-classes-per-file": false,
+    "member-ordering": false,
+    "no-unused-variable": true,
+    "no-unused-expression": true
+  }
+}

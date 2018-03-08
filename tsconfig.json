@@ -4,6 +4,7 @@
         "strict": true,
         "lib": ["es2015", "es2016", "dom"],
         "target": "es5",
-        "declaration": true
+        "declaration": true,
+        "outDir": "dist"
     }
 }
