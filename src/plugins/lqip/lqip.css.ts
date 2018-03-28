@@ -31,10 +31,6 @@ export const styles = `
   opacity: 1;
 }
 
-.lqip.blur img {
-  opacity: 0;
-}
-
 .lqip img {
   transition: inherit;
   display: block;

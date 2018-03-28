@@ -36,7 +36,7 @@ export const lqip = (options: LqipOptions): Transformer => {
     const promises: Promise<void>[] = []
 
     if (options.addStyles) {
-      $('head').append(`<style>${styles}</style>`)
+      $('head').prepend(`<style>${styles}</style>`)
     }
 
     const elements = $(options.query).toArray().map(el => $(el))
@@ -57,8 +57,6 @@ export const lqip = (options: LqipOptions): Transformer => {
         clone.attr('class', '')
         wrapper.append(clone)
         $el.replaceWith(wrapper)
-      }, () => {
-        // noop
       })
       promises.push(p)
     }
