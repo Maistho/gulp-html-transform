@@ -2,7 +2,11 @@ import { Transformer } from '../../transform'
 
 const chalk = require('chalk')
 
-export const insertFA = (styles: any[]): Transformer => {
+const noop = async () => {
+  // noop
+}
+
+export const insertFA = (styles: any[], prefix = 'fas'): Transformer => {
 
   let fontawesome: any
 
@@ -11,9 +15,12 @@ export const insertFA = (styles: any[]): Transformer => {
   } catch (err) {
     console.warn(`${chalk.red('@fortawesome/fontawesome')} is not installed, <fa-icon> will not work`)
 
-    return async () => {
-      // noop
-    }
+    return noop
+  }
+
+  if (!styles || !styles.length) {
+    console.warn(`${chalk.red('insertFA')} was not given any icon sets, <fa-icon> will not work`)
+    return noop
   }
 
   for (let style of styles) {
@@ -21,17 +28,23 @@ export const insertFA = (styles: any[]): Transformer => {
   }
 
   return async ($: CheerioStatic) => {
-    $('head').append(`<style>${fontawesome.dom.css()}</style>`)
+    $('head').prepend(`<style>${fontawesome.dom.css()}</style>`)
 
     $('fa-icon').each((i, el) => {
       const $el = $(el)
 
+      const iconName = $el.text().trim()
       const icon = fontawesome.icon({
-        prefix: 'fas',
-        iconName: $el.text().trim(),
-      }).html[0]
+        prefix: el.attribs['prefix'] || prefix,
+        iconName,
+      })
+      if (!icon) {
+        console.warn(`Did not find an icon with name '${iconName}'`)
+        return
+      }
 
-      const newEl = $(icon)
+      const newEl = $(icon.html[0])
+      newEl.addClass($el.attr('class'))
 
       $el.replaceWith(newEl)
     })
