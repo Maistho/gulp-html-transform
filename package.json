@@ -1,6 +1,6 @@
 {
   "name": "gulp-html-transform",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": "git@github.com:maistho/gulp-html-transform.git",
@@ -16,15 +16,15 @@
     "through2": "^2.0.3"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome": "^1.1.4",
     "@types/cheerio": "^0.22.6",
     "@types/through2": "^2.0.33",
     "@types/vinyl": "^2.0.1",
+    "image-size": "^0.6.2",
+    "lqip": "^2.0.2",
     "tslint": "^5.9.1",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.6.2",
-    "@fortawesome/fontawesome": "^1.1.4",
-    "image-size": "^0.6.2",
-    "lqip": "^2.0.2"
+    "typescript": "^2.6.2"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
