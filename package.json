@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "prepublish": "yarn build",
     "lint": "tslint -p ."
   },
   "dependencies": {
@@ -20,9 +21,14 @@
     "@types/vinyl": "^2.0.1",
     "tslint": "^5.9.1",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "@fortawesome/fontawesome": "^1.1.4",
+    "image-size": "^0.6.2",
+    "lqip": "^2.0.2"
   },
   "peerDependencies": {
-    "@fortawesome/fontawesome": "^1.1.4"
+    "@fortawesome/fontawesome": "^1.1.4",
+    "image-size": "^0.6.2",
+    "lqip": "^2.0.2"
   }
 }
