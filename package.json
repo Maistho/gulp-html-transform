@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "repository": "https://github.com:maistho/gulp-html-transform",
+  "repository": "https://github.com/maistho/gulp-html-transform",
   "author": "Gustav Bylund <maistho@gmail.com>",
   "license": "MIT",
   "scripts": {
