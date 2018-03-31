@@ -1,6 +1,6 @@
 {
   "name": "gulp-html-transform",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": "https://github.com:maistho/gulp-html-transform",
@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsc",
     "prepublish": "yarn build",
-    "lint": "tslint -p ."
+    "lint": "tslint -p .",
+    "release": "standard-version"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
