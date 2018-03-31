@@ -6,6 +6,9 @@
   "repository": "https://github.com/maistho/gulp-html-transform",
   "author": "Gustav Bylund <maistho@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=6.4.0"
+  },
   "scripts": {
     "build": "tsc",
     "prepublish": "yarn build",
