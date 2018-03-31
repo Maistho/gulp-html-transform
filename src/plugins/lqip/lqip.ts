@@ -7,8 +7,20 @@ import { Transformer } from '../../transform'
 import { styles } from './lqip.css'
 
 export interface LqipOptions {
-  base: string
+  /**
+   * @deprecated not needed since 2.1.1, paths are calculated based on the file paths
+   */
+  base?: string
+
+  /**
+   * custom query for finding images
+   * @default img[src]
+   */
   query?: string
+
+  /**
+   * Whether to add the styles to the <head> of your document
+   */
   addStyles?: boolean
 }
 
@@ -24,15 +36,12 @@ export const lqip = (options: LqipOptions): Transformer => {
       // noop
     }
   }
-  if (!options.base) {
-    throw new Error('Missing required parameter `base` from options')
-  }
 
   options = Object.assign({
     query: 'img[src]',
   }, options)
 
-  return async ($: CheerioStatic) => {
+  return async ($: CheerioStatic, { dirname }) => {
     const promises: Promise<void>[] = []
 
     if (options.addStyles) {
@@ -42,7 +51,12 @@ export const lqip = (options: LqipOptions): Transformer => {
     const elements = $(options.query).toArray().map(el => $(el))
 
     for (const $el of elements) {
-      const filepath = path.join(options.base, $el.attr('src'))
+      const src = $el.attr('src')
+      const re = /^https?:\/\//i
+      if (re.test(src)) {
+        return
+      }
+      const filepath = path.join(options.base || dirname, src)
 
       const p = Promise.all([
         base64(filepath),
@@ -57,6 +71,9 @@ export const lqip = (options: LqipOptions): Transformer => {
         clone.attr('class', '')
         wrapper.append(clone)
         $el.replaceWith(wrapper)
+      }).catch(err => {
+        console.warn(`lqip: Received an error when trying to load ${chalk.red(filepath)}`, err)
+        throw err
       })
       promises.push(p)
     }
