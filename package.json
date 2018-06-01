@@ -1,6 +1,6 @@
 {
   "name": "gulp-html-transform",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": "https://github.com/maistho/gulp-html-transform",
@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "through2": "^2.0.3",
     "image-size": "^0.6.2",
-    "lqip": "^2.0.3"
+    "lqip": "^2.0.3",
+    "through2": "^2.0.3"
   },
   "devDependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
