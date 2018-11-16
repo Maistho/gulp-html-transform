@@ -1,6 +1,5 @@
 const chalk = require('chalk')
 import * as path from 'path'
-import * as fs from 'fs'
 import { promisify } from 'util'
 
 import { Transformer } from '../../transform'
@@ -31,15 +30,22 @@ export const lqip = (options: LqipOptions): Transformer => {
     base64 = require('lqip').base64
     sizeOf = promisify(require('image-size'))
   } catch (err) {
-    console.warn(`lqip requires ${chalk.red('lqip')} and ${chalk.red('image-size')} to be installed`)
+    console.warn(
+      `lqip requires ${chalk.red('lqip')} and ${chalk.red(
+        'image-size',
+      )} to be installed`,
+    )
     return async () => {
       // noop
     }
   }
 
-  options = Object.assign({
-    query: 'img[src]',
-  }, options)
+  options = Object.assign(
+    {
+      query: 'img[src]',
+    },
+    options,
+  )
 
   return async ($: CheerioStatic, { dirname }) => {
     const promises: Promise<void>[] = []
@@ -48,7 +54,9 @@ export const lqip = (options: LqipOptions): Transformer => {
       $('head').prepend(`<style>${styles}</style>`)
     }
 
-    const elements = $(options.query).toArray().map(el => $(el))
+    const elements = $(options.query)
+      .toArray()
+      .map(el => $(el))
 
     for (const $el of elements) {
       const src = $el.attr('src')
@@ -58,23 +66,30 @@ export const lqip = (options: LqipOptions): Transformer => {
       }
       const filepath = path.join(options.base || dirname, src)
 
-      const p = Promise.all([
-        base64(filepath),
-        sizeOf(filepath),
-      ]).then(([res, dimensions]) => {
-        const wrapper = $('<div />')
-        wrapper.css('padding-top', ((dimensions.height / dimensions.width) * 100).toFixed(4) + '%')
-        wrapper.css('background-image', `url(${res})`)
-        wrapper.attr('class', `lqip blur ${$el.attr('class')}`)
-        const clone = $el.clone()
-        clone.attr('onload', 'this.parentElement.classList.remove(\'blur\')')
-        clone.attr('class', '')
-        wrapper.append(clone)
-        $el.replaceWith(wrapper)
-      }).catch(err => {
-        console.warn(`lqip: Received an error when trying to load ${chalk.red(filepath)}`, err)
-        throw err
-      })
+      const p = Promise.all([base64(filepath), sizeOf(filepath)])
+        .then(([res, dimensions]) => {
+          const wrapper = $('<div />')
+          wrapper.css(
+            'padding-top',
+            ((dimensions.height / dimensions.width) * 100).toFixed(4) + '%',
+          )
+          wrapper.css('background-image', `url(${res})`)
+          wrapper.attr('class', `lqip blur ${$el.attr('class')}`)
+          const clone = $el.clone()
+          clone.attr('onload', "this.parentElement.classList.remove('blur')")
+          clone.attr('class', '')
+          wrapper.append(clone)
+          $el.replaceWith(wrapper)
+        })
+        .catch(err => {
+          console.warn(
+            `lqip: Received an error when trying to load ${chalk.red(
+              filepath,
+            )}`,
+            err,
+          )
+          throw err
+        })
       promises.push(p)
     }
 

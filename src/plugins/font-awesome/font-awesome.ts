@@ -7,19 +7,26 @@ const noop = async () => {
 }
 
 export const insertFA = (styles: any[], prefix = 'fas'): Transformer => {
-
   let fontawesome: any
 
   try {
     fontawesome = require('@fortawesome/fontawesome')
   } catch (err) {
-    console.warn(`${chalk.red('@fortawesome/fontawesome')} is not installed, <fa-icon> will not work`)
+    console.warn(
+      `${chalk.red(
+        '@fortawesome/fontawesome',
+      )} is not installed, <fa-icon> will not work`,
+    )
 
     return noop
   }
 
   if (!styles || !styles.length) {
-    console.warn(`${chalk.red('insertFA')} was not given any icon sets, <fa-icon> will not work`)
+    console.warn(
+      `${chalk.red(
+        'insertFA',
+      )} was not given any icon sets, <fa-icon> will not work`,
+    )
     return noop
   }
 

@@ -26,8 +26,10 @@
     "@types/cheerio": "^0.22.6",
     "@types/through2": "^2.0.33",
     "@types/vinyl": "^2.0.1",
+    "prettier": "^1.15.2",
     "standard-version": "^4.3.0",
     "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.16.0",
     "tslint-config-standard": "^7.0.0",
     "typescript": "^2.6.2"
   },

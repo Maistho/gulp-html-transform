@@ -4,12 +4,15 @@ import * as File from 'vinyl'
 import * as stream from 'stream'
 
 export interface TransformerExtras {
-  dirname: string,
+  dirname: string
 }
 
-export type Transformer = ($: CheerioStatic, extras: TransformerExtras) => Promise<void>
+export type Transformer = (
+  $: CheerioStatic,
+  extras: TransformerExtras,
+) => Promise<void>
 
-export function transform (...args: Transformer[]): stream.Transform {
+export const transform = (...args: Transformer[]): stream.Transform => {
   return through.obj(async (file: File, enc, cb) => {
     if (!file || file.isNull() || file.isStream() || !file.contents) {
       return cb(null, file)

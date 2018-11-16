@@ -48,7 +48,7 @@ const defaultOptions: Options = {
 
 export const htmlSrcset = (inputOptions: InputOptions = {}): Transformer => {
   if (inputOptions.width) {
-    (inputOptions as Options).sizes = inputOptions.width
+    ;(inputOptions as Options).sizes = inputOptions.width
   }
 
   const options: Options = Object.assign(defaultOptions, inputOptions)
@@ -63,7 +63,7 @@ export const htmlSrcset = (inputOptions: InputOptions = {}): Transformer => {
       const origSrcset = $el.attr('srcset')
       let origSize: number | string
       let origSrc: string
-      [origSrc, origSize] = origSrcset.split(/\s/)
+      ;[origSrc, origSize] = origSrcset.split(/\s/)
 
       let filename = (() => {
         let x = origSrc.split('.')
@@ -94,7 +94,11 @@ export const htmlSrcset = (inputOptions: InputOptions = {}): Transformer => {
           if (size === 1) {
             srcset.push(`${filename}.${ext} ${origSize}${dir}`)
           } else {
-            srcset.push(`${filename}${options.prefix}${size}${options.postfix}.${ext} ${size}${dir}`)
+            srcset.push(
+              `${filename}${options.prefix}${size}${
+                options.postfix
+              }.${ext} ${size}${dir}`,
+            )
           }
         })
       })
