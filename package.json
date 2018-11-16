@@ -13,25 +13,25 @@
     "build": "tsc",
     "prepublish": "yarn build",
     "lint": "tslint -p .",
-    "release": "standard-version && yarn publish && git push --follow-tags"
+    "release": "yarn lint && standard-version && yarn publish && git push --follow-tags"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "image-size": "^0.6.2",
-    "lqip": "^2.0.3",
-    "through2": "^2.0.3"
+    "image-size": "^0.6.3",
+    "lqip": "^2.1.0",
+    "through2": "^3.0.0"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome": "^1.1.4",
-    "@types/cheerio": "^0.22.6",
-    "@types/through2": "^2.0.33",
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@types/cheerio": "^0.22.9",
+    "@types/through2": "^2.0.34",
     "@types/vinyl": "^2.0.1",
     "prettier": "^1.15.2",
-    "standard-version": "^4.3.0",
-    "tslint": "^5.9.1",
+    "standard-version": "^4.4.0",
+    "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
-    "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.6.2"
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.1.6"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
