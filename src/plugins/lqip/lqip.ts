@@ -21,13 +21,37 @@ export interface LqipOptions {
    * Whether to add the styles to the <head> of your document
    */
   addStyles?: boolean
+
+  /**
+   * Whether you want to carry the images classlist to the generated container.
+   */
+  carryClassList?: boolean
+
+  /**
+   * Use a different attribute for the image source eg. 'data-src'
+   * @default src
+   */
+  srcAttribute?: string
+
+  /**
+   * Extra classes to add to wrapper
+   */
+  classList?: string
+
+  /**
+   * Use alternate method for placeholders. Currently supports base64 or primaryColor
+   * @default base64
+   */
+  method?: string
 }
 
 export const lqip = (options: LqipOptions): Transformer => {
   let base64: any
+  let palette: any
   let sizeOf: any
   try {
     base64 = require('lqip').base64
+    palette = require('lqip').palette
     sizeOf = promisify(require('image-size'))
   } catch (err) {
     console.warn(
@@ -59,25 +83,38 @@ export const lqip = (options: LqipOptions): Transformer => {
       .map(el => $(el))
 
     for (const $el of elements) {
-      const src = $el.attr('src')
+      const src = $el.attr(options.srcAttribute || 'src')
       const re = /^https?:\/\//i
-      if (re.test(src)) {
-        return
-      }
+      if (re.test(src)) return
       const filepath = path.join(options.base || dirname, src)
 
-      const p = Promise.all([base64(filepath), sizeOf(filepath)])
+      let method = options.method ? options.method.toLowerCase() : 'base64'
+      const p = Promise.all([
+        method === 'primarycolor' ? palette(filepath) : base64(filepath),
+        sizeOf(filepath),
+      ])
         .then(([res, dimensions]) => {
           const wrapper = $('<div />')
-          wrapper.css(
-            'padding-top',
-            ((dimensions.height / dimensions.width) * 100).toFixed(4) + '%',
-          )
-          wrapper.css('background-image', `url(${res})`)
-          wrapper.attr('class', `lqip blur ${$el.attr('class')}`)
+
+          let aspectRatio = `${(
+            (dimensions.height / dimensions.width) *
+            100
+          ).toFixed(4)}%`
+          wrapper.css('padding-top', aspectRatio)
+
+          if (method === 'primarycolor') wrapper.css('background-color', res[0])
+          else wrapper.css('background-image', `url(${res})`)
+
+          let wrapperClasses = 'lqip blur'
+          if (options.carryClassList) wrapperClasses += ` ${$el.attr('class')}`
+          if (options.classList) wrapperClasses += ` ${options.classList}`
+          wrapper.attr('class', wrapperClasses)
+
           const clone = $el.clone()
           clone.attr('onload', "this.parentElement.classList.remove('blur')")
-          clone.attr('class', '')
+
+          if (options.carryClassList) clone.attr('class', '')
+
           wrapper.append(clone)
           $el.replaceWith(wrapper)
         })
