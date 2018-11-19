@@ -28,9 +28,10 @@ export interface LqipOptions {
   carryClassList?: boolean
 
   /**
-   * Whether you want lqip to generate form the data-src attribute rather than src.
+   * Use a different attribute for the image source eg. 'data-src'
+   * @default src
    */
-  useDataSrc?: boolean
+  srcAttribute?: string
 
   /**
    * Extra classes to add to wrapper
@@ -38,9 +39,10 @@ export interface LqipOptions {
   classList?: string
 
   /**
-   * Use primary color instead of low quality image
+   * Use alternate method for placeholders. Currently supports base64 or primaryColor
+   * @default base64
    */
-  preferColors?: boolean
+  method?: string
 }
 
 export const lqip = (options: LqipOptions): Transformer => {
@@ -81,36 +83,38 @@ export const lqip = (options: LqipOptions): Transformer => {
       .map(el => $(el))
 
     for (const $el of elements) {
-      const src = $el.attr(options.useDataSrc ? 'data-src' : 'src')
+      const src = $el.attr(options.srcAttribute || 'src')
       const re = /^https?:\/\//i
-      if (re.test(src)) {
-        return
-      }
+      if (re.test(src)) return
       const filepath = path.join(options.base || dirname, src)
 
+      let method = options.method ? options.method.toLowerCase() : 'base64'
       const p = Promise.all([
-        options.preferColors ? palette(filepath) : base64(filepath),
+        method === 'primarycolor' ? palette(filepath) : base64(filepath),
         sizeOf(filepath),
       ])
         .then(([res, dimensions]) => {
           const wrapper = $('<div />')
-          wrapper.css(
-            'padding-top',
-            ((dimensions.height / dimensions.width) * 100).toFixed(4) + '%',
-          )
-          if (options.preferColors) wrapper.css('background-color', res[0])
+
+          let aspectRatio = `${(
+            (dimensions.height / dimensions.width) *
+            100
+          ).toFixed(4)}%`
+          wrapper.css('padding-top', aspectRatio)
+
+          if (method === 'primarycolor') wrapper.css('background-color', res[0])
           else wrapper.css('background-image', `url(${res})`)
-          wrapper.attr(
-            'class',
-            'lqip blur ' + options.carryClassList
-              ? $el.attr('class')
-              : '' + options.classList
-              ? options.classList
-              : '',
-          )
+
+          let wrapperClasses = 'lqip blur'
+          if (options.carryClassList) wrapperClasses += ` ${$el.attr('class')}`
+          if (options.classList) wrapperClasses += ` ${options.classList}`
+          wrapper.attr('class', wrapperClasses)
+
           const clone = $el.clone()
           clone.attr('onload', "this.parentElement.classList.remove('blur')")
+
           if (options.carryClassList) clone.attr('class', '')
+
           wrapper.append(clone)
           $el.replaceWith(wrapper)
         })
