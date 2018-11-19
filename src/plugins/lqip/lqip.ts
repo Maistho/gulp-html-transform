@@ -21,13 +21,35 @@ export interface LqipOptions {
    * Whether to add the styles to the <head> of your document
    */
   addStyles?: boolean
+
+  /**
+   * Whether you want to carry the images classlist to the generated container.
+   */
+  carryClassList?: boolean
+
+  /**
+   * Whether you want lqip to generate form the data-src attribute rather than src.
+   */
+  useDataSrc?: boolean
+
+  /**
+   * Extra classes to add to wrapper
+   */
+  classList?: string
+
+  /**
+   * Use primary color instead of low quality image
+   */
+  preferColors?: boolean
 }
 
 export const lqip = (options: LqipOptions): Transformer => {
   let base64: any
+  let palette: any
   let sizeOf: any
   try {
     base64 = require('lqip').base64
+    palette = require('lqip').palette
     sizeOf = promisify(require('image-size'))
   } catch (err) {
     console.warn(
@@ -59,25 +81,36 @@ export const lqip = (options: LqipOptions): Transformer => {
       .map(el => $(el))
 
     for (const $el of elements) {
-      const src = $el.attr('src')
+      const src = $el.attr(options.useDataSrc ? 'data-src' : 'src')
       const re = /^https?:\/\//i
       if (re.test(src)) {
         return
       }
       const filepath = path.join(options.base || dirname, src)
 
-      const p = Promise.all([base64(filepath), sizeOf(filepath)])
+      const p = Promise.all([
+        options.preferColors ? palette(filepath) : base64(filepath),
+        sizeOf(filepath),
+      ])
         .then(([res, dimensions]) => {
           const wrapper = $('<div />')
           wrapper.css(
             'padding-top',
             ((dimensions.height / dimensions.width) * 100).toFixed(4) + '%',
           )
-          wrapper.css('background-image', `url(${res})`)
-          wrapper.attr('class', `lqip blur ${$el.attr('class')}`)
+          if (options.preferColors) wrapper.css('background-color', res[0])
+          else wrapper.css('background-image', `url(${res})`)
+          wrapper.attr(
+            'class',
+            'lqip blur ' + options.carryClassList
+              ? $el.attr('class')
+              : '' + options.classList
+              ? options.classList
+              : '',
+          )
           const clone = $el.clone()
           clone.attr('onload', "this.parentElement.classList.remove('blur')")
-          clone.attr('class', '')
+          if (options.carryClassList) clone.attr('class', '')
           wrapper.append(clone)
           $el.replaceWith(wrapper)
         })
