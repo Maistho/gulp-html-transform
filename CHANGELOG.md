@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 <a name="2.3.1"></a>
 ## [2.3.1](https://github.com/maistho/gulp-html-transform/compare/v2.2.4...v2.3.1) (2018-11-20)
+* **lqip:** added more options ([see PR 1](https://github.com/Maistho/gulp-html-transform/pull/1))
 
 
 
