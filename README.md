@@ -3,6 +3,7 @@
 [![NPM version][npm]][npm-url]
 [![Node version][node]][node-url]
 [![Dependency status][deps]][deps-url]
+[![Build Status][travis]][travis-url]
 
 [npm]: https://img.shields.io/npm/v/gulp-html-transform.svg
 [npm-url]: https://www.npmjs.com/package/gulp-html-transform
@@ -10,6 +11,8 @@
 [node-url]: https://nodejs.org
 [deps]: https://img.shields.io/david/Maistho/gulp-html-transform.svg
 [deps-url]: https://david-dm.org/Maistho/gulp-html-transform
+[travis]: https://img.shields.io/travis/Maistho/gulp-html-transform.svg
+[travis-url]: https://travis-ci.org/Maistho/gulp-html-transform
 
 Transforms some html using transformer functions
 
