@@ -14,7 +14,9 @@
     "prepublish": "yarn build",
     "lint": "tslint -p .",
     "test": "yarn lint && jest",
-    "release": "yarn test && standard-version && yarn publish && git push --follow-tags"
+    "release": "yarn test && standard-version && yarn publish && git push --follow-tags",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
@@ -38,7 +40,8 @@
     "tslint-config-prettier": "^1.16.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.1.6",
-    "vinyl": "^2.2.0"
+    "vinyl": "^2.2.0",
+    "vuepress": "^0.14.5"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
