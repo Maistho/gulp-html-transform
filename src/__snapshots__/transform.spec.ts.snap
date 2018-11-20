@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gulp-html-transform can accept a transformer 1`] = `
+"<html><head></head>
+  <body>
+    <img src=\\"https://i.imgur.com/HObogkM.gif\\">
+  
+
+</body></html>"
+`;

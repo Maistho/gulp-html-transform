@@ -13,7 +13,8 @@
     "build": "tsc",
     "prepublish": "yarn build",
     "lint": "tslint -p .",
-    "release": "yarn lint && standard-version && yarn publish && git push --follow-tags"
+    "test": "yarn lint && jest",
+    "release": "yarn test && standard-version && yarn publish && git push --follow-tags"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
@@ -24,14 +25,18 @@
   "devDependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@types/cheerio": "^0.22.9",
+    "@types/jest": "^23.3.9",
     "@types/through2": "^2.0.34",
     "@types/vinyl": "^2.0.1",
+    "jest": "^23.6.0",
     "prettier": "^1.15.2",
     "standard-version": "^4.4.0",
+    "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.1.6"
+    "typescript": "^3.1.6",
+    "vinyl": "^2.2.0"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome": "^1.1.4",

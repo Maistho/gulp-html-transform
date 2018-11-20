@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lqip creates a background-color 1`] = `
+"<html><head></head>
+  <body>
+    <div style=\\"padding-top: 66.6667%; background-color: #063559;\\" class=\\"lqip blur\\"><img src=\\"test.jpg\\" onload=\\"this.parentElement.classList.remove(&apos;blur&apos;)\\"></div>
+  
+
+</body></html>"
+`;
+
+exports[`lqip creates a base64 lqip 1`] = `
+"<html><head></head>
+  <body>
+    <div style=\\"padding-top: 66.6667%; background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAcACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APNfGn/BT7XPjXbXGs6H8IvgTc6jqG1U1HVvhHBZorXTqscl0uleJtHuHtIJZF3RJHO8oijdrY5dBrwHx3xJwbVpwx3HHGuKy9TlUhhcJj8qwsaUKMpKXJh4ZD7FttcseWrSlG/u1EtTr444R4f46hUvwJwFPNfYwoPNs4yfMcxxU/b8riqmK/t6jX9nFS5pKVOsp681GUtF8TXf7QPxkubu6ubb4VfCrULa4uJp7e/tPB9hZWl9BLI0kV5a2d18S7a5tLe5jZZoba4t4J4I3WKWGKRGRf6tpfSMw8KVKE80z6MoU4RlGeYYuUoyjFJxlKOXOMpJppyi3Fu7TaP5mq/RfU6tSayXhiSnUnJSo5Jl0aUuaTfNSjUzKFSNN3vCM4Qmo2UoxldL/9k=);\\" class=\\"lqip blur\\"><img src=\\"test.jpg\\" onload=\\"this.parentElement.classList.remove(&apos;blur&apos;)\\"></div>
+  
+
+</body></html>"
+`;

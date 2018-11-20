@@ -42,10 +42,10 @@ export interface LqipOptions {
    * Use alternate method for placeholders. Currently supports base64 or primaryColor
    * @default base64
    */
-  method?: string
+  method?: 'base64' | 'primaryColor'
 }
 
-export const lqip = (options: LqipOptions): Transformer => {
+export const lqip = (opt?: LqipOptions): Transformer => {
   let base64: any
   let palette: any
   let sizeOf: any
@@ -64,11 +64,13 @@ export const lqip = (options: LqipOptions): Transformer => {
     }
   }
 
-  options = Object.assign(
+  const options = Object.assign(
     {
       query: 'img[src]',
+      method: 'base64',
+      srcAttribute: 'src',
     },
-    options,
+    opt,
   )
 
   return async ($: CheerioStatic, { dirname }) => {
@@ -83,12 +85,12 @@ export const lqip = (options: LqipOptions): Transformer => {
       .map(el => $(el))
 
     for (const $el of elements) {
-      const src = $el.attr(options.srcAttribute || 'src')
+      const src = $el.attr(options.srcAttribute)
       const re = /^https?:\/\//i
       if (re.test(src)) return
       const filepath = path.join(options.base || dirname, src)
 
-      let method = options.method ? options.method.toLowerCase() : 'base64'
+      let method = options.method && options.method.toLowerCase()
       const p = Promise.all([
         method === 'primarycolor' ? palette(filepath) : base64(filepath),
         sizeOf(filepath),
@@ -106,14 +108,20 @@ export const lqip = (options: LqipOptions): Transformer => {
           else wrapper.css('background-image', `url(${res})`)
 
           let wrapperClasses = 'lqip blur'
-          if (options.carryClassList) wrapperClasses += ` ${$el.attr('class')}`
-          if (options.classList) wrapperClasses += ` ${options.classList}`
+          if (options.carryClassList) {
+            wrapperClasses += ` ${$el.attr('class')}`
+          }
+          if (options.classList) {
+            wrapperClasses += ` ${options.classList}`
+          }
           wrapper.attr('class', wrapperClasses)
 
           const clone = $el.clone()
           clone.attr('onload', "this.parentElement.classList.remove('blur')")
 
-          if (options.carryClassList) clone.attr('class', '')
+          if (options.carryClassList) {
+            clone.attr('class', '')
+          }
 
           wrapper.append(clone)
           $el.replaceWith(wrapper)

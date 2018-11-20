@@ -14,7 +14,13 @@ export type Transformer = (
 
 export const transform = (...args: Transformer[]): stream.Transform => {
   return through.obj(async (file: File, enc, cb) => {
-    if (!file || file.isNull() || file.isStream() || !file.contents) {
+    if (
+      !file ||
+      file.isNull() ||
+      file.isStream() ||
+      !file.contents ||
+      !args.length
+    ) {
       return cb(null, file)
     }
 
@@ -32,7 +38,7 @@ export const transform = (...args: Transformer[]): stream.Transform => {
       }
     }
 
-    file.contents = new Buffer($.html())
+    file.contents = Buffer.from($.html())
     cb(null, file)
   })
 }
