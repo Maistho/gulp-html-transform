@@ -47,7 +47,7 @@ gulp.task('html', () => {
           format: ['webp', 'jpg'],
         }),
         lqip({
-          base: __dirname,
+          method: 'primaryColor',
         }),
       ),
     )
