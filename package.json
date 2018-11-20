@@ -20,7 +20,8 @@
     "cheerio": "^1.0.0-rc.2",
     "image-size": "^0.6.3",
     "lqip": "^2.1.0",
-    "through2": "^3.0.0"
+    "through2": "^3.0.0",
+    "util.promisify": "^1.0.0"
   },
   "devDependencies": {
     "@commitlint/travis-cli": "^7.2.1",

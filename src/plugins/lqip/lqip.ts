@@ -1,6 +1,7 @@
 const chalk = require('chalk')
 import * as path from 'path'
-import { promisify } from 'util'
+import { promisify as promisifyType } from 'util'
+const promisify: typeof promisifyType = require('util.promisify')
 
 import { Transformer } from '../../transform'
 import { styles } from './lqip.css'
