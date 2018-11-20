@@ -20,6 +20,7 @@ export const styles = `
   opacity: 0;
   transition: inherit;
   z-index: 1;
+  background-color: inherit;
   background-image: inherit;
   background-size: cover;
   background-repeat: no-repeat;
