@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.2"></a>
+## [2.3.2](https://github.com/maistho/gulp-html-transform/compare/v2.3.1...v2.3.2) (2018-11-20)
+
+
+### Bug Fixes
+
+* **lqip:** inherit bg color to opacity fade in el ([5d9f829](https://github.com/maistho/gulp-html-transform/commit/5d9f829)), closes [#3](https://github.com/maistho/gulp-html-transform/issues/3)
+* **transform:** get dirname fallback from file path ([fcf4280](https://github.com/maistho/gulp-html-transform/commit/fcf4280))
+
+
+
 <a name="2.3.1"></a>
 ## [2.3.1](https://github.com/maistho/gulp-html-transform/compare/v2.2.4...v2.3.1) (2018-11-20)
 * **lqip:** added more options ([see PR 1](https://github.com/Maistho/gulp-html-transform/pull/1))
