@@ -14,4 +14,10 @@ describe('lqip', () => {
     ])
     expect(content).toMatchSnapshot()
   })
+  it('adds styles to the head', async () => {
+    const content = await testTransform(filename, [
+      lqip({ query: '.noop', addStyles: true }),
+    ])
+    expect(content).toMatchSnapshot()
+  })
 })
