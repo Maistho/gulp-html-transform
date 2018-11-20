@@ -2,6 +2,7 @@ import * as through from 'through2'
 import * as cheerio from 'cheerio'
 import * as File from 'vinyl'
 import * as stream from 'stream'
+import * as path from 'path'
 
 export interface TransformerExtras {
   dirname: string
@@ -25,7 +26,7 @@ export const transform = (...args: Transformer[]): stream.Transform => {
     }
 
     const content = file.contents.toString()
-    const dirname = file.dirname
+    const dirname = file.dirname || path.dirname(file.path)
     const $ = cheerio.load(content)
 
     for (const transformer of args) {
