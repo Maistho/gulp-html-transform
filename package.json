@@ -23,6 +23,7 @@
     "through2": "^3.0.0"
   },
   "devDependencies": {
+    "@commitlint/travis-cli": "^7.2.1",
     "@fortawesome/fontawesome": "^1.1.8",
     "@types/cheerio": "^0.22.9",
     "@types/jest": "^23.3.9",
