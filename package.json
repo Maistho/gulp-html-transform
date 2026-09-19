@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "image-size": "^0.6.3",
+    "image-size": "npm:image-size-next@1.2.2",
     "lqip": "^2.1.0",
     "through2": "^3.0.0",
     "util.promisify": "^1.0.0"
@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
-    "image-size": "^0.6.2",
+    "image-size": "npm:image-size-next@1.2.2",
     "lqip": "^2.0.2"
   }
 }
